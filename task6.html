@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Loan Manager</title>
+    <style>
+        body {
+	font-family: Arial, sans-serif;
+}
+
+#loan-application {
+	margin-bottom: 20px;
+}
+
+#loan-status {
+	margin-top: 20px;
+}
+
+    </style>
+</head>
+<body>
+	<h2>Loan Manager</h2>
+	<div id="loan-application">
+		<label for="name">Name:</label>
+		<input type="text" id="name" />
+		<br>
+		<label for="income">Monthly Income:</label>
+		<input type="number" id="income" />
+		<br>
+		<label for="balance">Account Balance:</label>
+		<input type="number" id="balance" />
+		<br>
+		<label for="loanAmount">Loan Amount:</label>
+		<input type="number" id="loanAmount" />
+		<br>
+		<button onclick="applyLoan()">Apply Loan</button>
+	</div>
+	<div id="loan-status">
+		<p id="status"></p>
+	</div>
+
+	<script>
+        class Loan {
+	constructor(name, income, balance, loanAmount) {
+		this.name = name;
+		this.income = income;
+		this.balance = balance;
+		this.loanAmount = loanAmount;
+		this.status = "pending";
+	}
+}
+
+class LoanManager {
+	constructor() {
+		this.loans = [];
+	}
+
+	applyLoan(name, income, balance, loanAmount) {
+		const loan = new Loan(name, income, balance, loanAmount);
+		this.loans.push(loan);
+		return loan;
+	}
+
+	approveLoan(loan) {
+		if (loan.income >= 30000 && loan.balance >= 10000) {
+			loan.status = "approved";
+			return true;
+		} else {
+			loan.status = "rejected";
+			return false;
+		}
+	}
+
+	rejectLoan(loan) {
+		loan.status = "rejected";
+	}
+
+	getLoanStatus(loan) {
+		return loan.status;
+	}
+}
+
+const loanManager = new LoanManager();
+
+function applyLoan() {
+	const name = document.getElementById('name').value;
+	const income = Number(document.getElementById('income').value);
+	const balance = Number(document.getElementById('balance').value);
+	const loanAmount = Number(document.getElementById('loanAmount').value);
+	const loan = loanManager.applyLoan(name, income, balance, loanAmount);
+	const approvalStatus = loanManager.approveLoan(loan);
+	document.getElementById('status').innerText = `Loan Application ${approvalStatus ? 'Approved' : 'Rejected'}`;
+}
+
+    </script>
+</body>
+</html>

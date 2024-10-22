@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Loan Calculator</title>
+    <style>
+        body {
+	font-family: Arial, sans-serif;
+}
+
+#loan-info {
+	margin-bottom: 20px;
+}
+
+#result {
+	margin-top: 20px;
+}
+
+    </style>
+</head>
+<body>
+	<h2>Loan Calculator</h2>
+	<div id="loan-info">
+		<label for="loanAmount">Loan Amount:</label>
+		<input type="number" id="loanAmount" />
+		<br>
+		<label for="interestRate">Interest Rate (%):</label>
+		<input type="number" id="interestRate" />
+		<br>
+		<label for="loanTerm">Loan Term (years):</label>
+		<input type="number" id="loanTerm" />
+		<br>
+		<button id="calculate-btn">Calculate Monthly Payment</button>
+		<button id="check-status-btn">Check Loan Status</button>
+	</div>
+	<div id="result"></div>
+
+	<script>
+        class Loan {
+	constructor(loanAmount, interestRate, loanTerm) {
+		this.loanAmount = loanAmount;
+		this.interestRate = interestRate / 100 / 12; 
+		this.loanTerm = loanTerm * 12; 
+		this.monthlyPayment = 0;
+		this.EMIsPaid = 0;
+		this.remainingAmount = loanAmount;
+	}
+
+	calculateMonthlyPayment() {
+		this.monthlyPayment = (this.loanAmount * this.interestRate * Math.pow(1 + this.interestRate, this.loanTerm)) / (Math.pow(1 + this.interestRate, this.loanTerm) - 1);
+		return this.monthlyPayment.toFixed(2);
+	}
+
+	checkLoanStatus(EMIsPaid) {
+		this.EMIsPaid = EMIsPaid;
+		this.remainingAmount = this.loanAmount * Math.pow(1 + this.interestRate, this.loanTerm - EMIsPaid) / Math.pow(1 + this.interestRate, this.loanTerm);
+		return `EMIs Paid: ${EMIsPaid}, Remaining Amount: ${this.remainingAmount.toFixed(2)}`;
+	}
+}
+
+const loan = new Loan(0, 0, 0);
+
+document.getElementById('calculate-btn').addEventListener('click', () => {
+	const loanAmount = Number(document.getElementById('loanAmount').value);
+	const interestRate = Number(document.getElementById('interestRate').value);
+	const loanTerm = Number(document.getElementById('loanTerm').value);
+	loan.loanAmount = loanAmount;
+	loan.interestRate = interestRate / 100 / 12;
+	loan.loanTerm = loanTerm * 12;
+	const monthlyPayment = loan.calculateMonthlyPayment();
+	document.getElementById('result').innerText = `Monthly Payment: ${monthlyPayment}`;
+});
+
+document.getElementById('check-status-btn').addEventListener('click', () => {
+	const EMIsPaid = Number(prompt('Enter number of EMIs paid:'));
+	const loanStatus = loan.checkLoanStatus(EMIsPaid);
+	document.getElementById('result').innerText = loanStatus;
+});
+
+    </script>
+</body>
+</html>

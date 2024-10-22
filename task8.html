@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fibonacci Series in Reverse Order</title>
+	<style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        
+        #result {
+            margin-top: 20px;
+        }
+        
+        .fib-series {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        </style>
+</head>
+<body>
+	<h1>Fibonacci Series in Reverse Order</h1>
+	<input id="n" type="number" placeholder="Enter number of terms">
+	<button id="generate">Generate</button>
+	<div id="result"></div>
+<script>
+    function fibonacci(n) {
+	let fib = [0, 1];
+	while (fib.length < n) {
+		fib.push(fib[fib.length - 1] + fib[fib.length - 2]);
+	}
+	return fib;
+}
+
+function reverseFibonacci(n) {
+	let fib = fibonacci(n);
+	return fib.reverse();
+}
+
+document.getElementById('generate').addEventListener('click', function() {
+	let n = parseInt(document.getElementById('n').value);
+	let reversedFib = reverseFibonacci(n);
+	let resultHtml = '';
+
+	for (let i = 0; i < n; i++) {
+		resultHtml += `<span class="fib-series">${reversedFib[i]}</span> `;
+	}
+
+	document.getElementById('result').innerHTML = resultHtml;
+});
+
+
+</script>
+</body>
+</html>

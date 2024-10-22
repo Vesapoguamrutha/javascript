@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Scholarship Eligibility</title>
+	<style>
+        body {
+	font-family: Arial, sans-serif;
+	background-color: #f0f0f0;
+}
+
+#result {
+	font-size: 24px;
+	font-weight: bold;
+	margin-top: 20px;
+}
+
+.eligible {
+	color: green;
+}
+
+.not-eligible {
+	color: red;
+}
+    </style>
+</head>
+<body>
+	<h2>Scholarship Eligibility</h2>
+	<label for="gpa">GPA:</label>
+	<input type="number" id="gpa" />
+	<button onclick="checkEligibility()">Check</button>
+	<p id="result"></p>
+<script>
+    function checkEligibility() {
+	const gpa = Number(document.getElementById('gpa').value);
+	const resultElement = document.getElementById('result');
+
+	if (gpa >= 7.5) {
+		resultElement.innerText = 'Eligible for scholarship!';
+		resultElement.classList.add('eligible');
+		resultElement.classList.remove('not-eligible');
+	} else {
+		resultElement.innerText = 'Not eligible for scholarship.';
+		resultElement.classList.add('not-eligible');
+		resultElement.classList.remove('eligible');
+	}
+}
+</script>
+</body>
+</html>
+
+

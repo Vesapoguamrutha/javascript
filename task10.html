@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sorting Array in Descending Order</title>
+	<style>
+        body {
+	font-family: Arial, sans-serif;
+	background-color: #f0f0f0;
+}
+
+#result {
+	margin-top: 20px;
+	font-size: 24px;
+	font-weight: bold;
+}
+    </style>
+</head>
+<body>
+	<h1>Sorting Array in Descending Order</h1>
+	<input id="array-input" type="text" placeholder="Enter array elements (separated by commas)">
+	<button id="sort-button">Sort</button>
+	<p id="result"></p>
+<script>
+   function sortDescending(array) {
+	return array.sort((a, b) => b - a);
+}
+
+document.getElementById('sort-button').addEventListener('click', function() {
+	const arrayInput = document.getElementById('array-input').value;
+	const array = arrayInput.split(',').map(Number);
+
+	if (array.some(isNaN)) {
+		document.getElementById('result').innerText = 'Error: Invalid input';
+		return;
+	}
+
+	const sortedArray = sortDescending(array);
+	document.getElementById('result').innerText = `Sorted Array: ${sortedArray.join(', ')}`;
+}); 
+</script>
+</body>
+</html>

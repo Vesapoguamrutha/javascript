@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timestamp Example</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+.timestamp-container {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.timestamp {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.formatted-time {
+    color: #888;
+    font-size: 16px;
+}
+    </style>
+</head>
+<body>
+    <div class="timestamp-container">
+        <div class="timestamp" id="timestamp"></div>
+        <div class="formatted-time" id="formattedTime"></div>
+    </div>
+
+    <script>
+        function formatTimestamp() {
+    const now = new Date();
+    const timestamp = new Date('2023-10-15T10:00:00'); 
+
+    // Format dd/mm/yyyy
+    const dd = String(timestamp.getDate()).padStart(2, '0');
+    const mm = String(timestamp.getMonth() + 1).padStart(2, '0'); 
+    const yyyy = timestamp.getFullYear();
+    const formattedDate = `${dd}/${mm}/${yyyy}`;
+
+    // Format hh.mm.ss
+    const hh = String(timestamp.getHours()).padStart(2, '0');
+    const min = String(timestamp.getMinutes()).padStart(2, '0');
+    const ss = String(timestamp.getSeconds()).padStart(2, '0');
+    const formattedTime = `${hh}.${min}.${ss}`;
+
+
+    const diffInSeconds = Math.floor((now - timestamp) / 1000);
+    let timeAgo;
+
+    if (diffInSeconds < 60) {
+        timeAgo = `${diffInSeconds} seconds ago`;
+    } else if (diffInSeconds < 3600) {
+        const minutes = Math.floor(diffInSeconds / 60);
+        timeAgo = `${minutes} min ago`;
+    } else if (diffInSeconds < 86400) {
+        const hours = Math.floor(diffInSeconds / 3600);
+        timeAgo = `${hours} hour ago`;
+    } else {
+        const days = Math.floor(diffInSeconds / 86400);
+        const months = Math.floor(days / 30); 
+        if (months > 0) {
+            timeAgo = `${months} month${months > 1 ? 's' : ''} ago`;
+        } else {
+            timeAgo = `${days} day${days > 1 ? 's' : ''} ago`;
+        }
+    }
+    document.getElementById('timestamp').innerText = formattedDate;
+    document.getElementById('formattedTime').innerText = formattedTime + ' | ' + timeAgo;
+}
+formatTimestamp();
+    </script>
+</body>
+</html>

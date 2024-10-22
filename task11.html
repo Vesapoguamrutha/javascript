@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Remove Duplicate Elements</title>
+	<style>
+        body {
+	font-family: Arial, sans-serif;
+	background-color: #f0f0f0;
+}
+
+#result {
+	margin-top: 20px;
+	font-size: 24px;
+	font-weight: bold;
+}
+    </style>
+</head>
+<body>
+	<h1>Remove Duplicate Elements</h1>
+	<input id="array-input" type="text" placeholder="Enter array elements (separated by commas)">
+	<button id="remove-duplicates-button">Remove Duplicates</button>
+	<p id="result"></p>
+<script>
+    function removeDuplicates(array) {
+	return [...new Set(array)];
+}
+
+document.getElementById('remove-duplicates-button').addEventListener('click', function() {
+	const arrayInput = document.getElementById('array-input').value;
+	const array = arrayInput.split(',').map(Number);
+
+	if (array.some(isNaN)) {
+		document.getElementById('result').innerText = 'Error: Invalid input';
+		return;
+	}
+
+	const uniqueArray = removeDuplicates(array);
+	document.getElementById('result').innerText = `Unique Elements: ${uniqueArray.join(', ')}`;
+});
+</script>
+</body>
+</html>

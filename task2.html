@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Price Calculator</title>
+    <style>
+        body {
+	font-family: Arial, sans-serif;
+}
+
+input[type="number"] {
+	padding: 10px;
+	margin-bottom: 20px;
+}
+
+button {
+	padding: 10px 20px;
+	background-color: #4CAF50;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: #3e8e41;
+}
+
+    </style>
+</head>
+<body>
+    <h1>Salary Calculator</h1>
+	<label for="deductions">Deductions:</label>
+	<input type="number" id="deductions" placeholder="Enter deductions">
+	<button onclick="calculateSalary()">Calculate Salary</button>
+	<p id="salary"></p>
+
+
+
+    <script>
+        function calculateSalary() {
+	const deductions = document.getElementById("deductions").value;
+	const monthlyPayScale = 25000; 
+	const salary = monthlyPayScale - parseInt(deductions);
+	document.getElementById("salary").innerHTML = "Salary: " + salary;
+	return false; 
+
+}
+    </script>
+</body>
+</html>

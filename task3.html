@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Discount Calculator</title>
+</head>
+<body>
+	<h2>Discount Calculator</h2>
+	<label for="costPrice">Cost Price:</label>
+	<input type="number" id="costPrice" />
+	<button onclick="calculateSellingPrice()">Calculate Selling Price</button>
+	<p id="sellingPrice"></p>
+
+	<script>
+function calculateSellingPrice() {
+	const costPrice = document.getElementById('costPrice').value;
+	const discount = 20 / 100; 
+	const discountAmount = costPrice * discount;
+	const sellingPrice = costPrice - discountAmount;
+	document.getElementById('sellingPrice').innerHTML = `Selling Price: ${sellingPrice}`;
+}
+</script>
+</body>
+</html>

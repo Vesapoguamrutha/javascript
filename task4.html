@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bank Account</title>
+	<style>
+        body {
+	font-family: Arial, sans-serif;
+}
+
+#account-info {
+	margin-bottom: 20px;
+}
+
+#transaction {
+	margin-top: 20px;
+}
+
+    </style>
+</head>
+<body>
+	<h2>Bank Account</h2>
+	<div id="account-info">
+		<p>Account Number: <span id="account-number">1234567890</span></p>
+		<p>Account Holder Name: <span id="account-holder-name"></span>Amrutha</p>
+		<p>Balance: <span id="balance">0</span></p>
+	</div>
+	<div id="transaction">
+		<label for="amount">Amount:</label>
+		<input type="number" id="amount">
+		<button id="deposit-btn">Deposit</button>
+		<button id="withdraw-btn">Withdraw</button>
+		<button id="check-balance-btn">Check Balance</button>
+	</div>
+
+	<script>
+        class BankAccount {
+	constructor(accountNumber, accountHolderName, balance) {
+		this.accountNumber = accountNumber;
+		this.accountHolderName = accountHolderName;
+		this.balance = balance;
+	}
+
+	deposit(amount) {
+		this.balance += amount;
+		document.getElementById('balance').innerText = this.balance;
+	}
+
+	withdraw(amount) {
+		if (amount > this.balance) {
+			alert('Insufficient funds');
+		} else {
+			this.balance -= amount;
+			document.getElementById('balance').innerText = this.balance;
+		}
+	}
+
+	checkBalance() {
+		alert(`Current balance: ${this.balance}`);
+	}
+}
+
+const account = new BankAccount('1234567890', 'Amrutha', 0);
+
+document.getElementById('deposit-btn').addEventListener('click', () => {
+	account.deposit(Number(document.getElementById('amount').value));
+});
+
+document.getElementById('withdraw-btn').addEventListener('click', () => {
+	account.withdraw(Number(document.getElementById('amount').value));
+});
+
+document.getElementById('check-balance-btn').addEventListener('click', () => {
+	account.checkBalance();
+});
+    </script>
+</body>
+</html>
